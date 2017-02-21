@@ -117,10 +117,11 @@ private:
 		const uint8_t ignore_all_except_q = (1 << 6) | (7 << 0);
 		float q[4];
 
-		UAS::quaternion_to_mavlink(
-				UAS::transform_orientation_enu_ned(
-					UAS::transform_orientation_baselink_aircraft(Eigen::Quaterniond(tr.rotation()))),q);
-
+		//UAS::quaternion_to_mavlink(
+		//		UAS::transform_orientation_enu_ned(
+		//			UAS::transform_orientation_baselink_aircraft(Eigen::Quaterniond(tr.rotation()))),q);
+        UAS::quaternion_to_mavlink(Eigen::Quaterniond(tr.rotation()),q);
+        //printf("q1:%.2f q2:%.2f q3:%.2f q4:%.2f \n",q[0],q[1],q[2],q[3]);
 		set_attitude_target(stamp.toNSec() / 1000000,
 				ignore_all_except_q,
 				q,

@@ -91,10 +91,12 @@ private:
 		 */
 		const uint16_t ignore_all_except_xyz_y = (1 << 11) | (7 << 6) | (7 << 3);
 
-		auto p = UAS::transform_frame_enu_ned(Eigen::Vector3d(tr.translation()));
-		auto q = UAS::transform_orientation_enu_ned(
-				UAS::transform_orientation_baselink_aircraft(Eigen::Quaterniond(tr.rotation())));
-
+		//auto p = UAS::transform_frame_enu_ned(Eigen::Vector3d(tr.translation()));
+        auto p = Eigen::Vector3d(tr.translation());
+		//auto q = UAS::transform_orientation_enu_ned(
+		//		UAS::transform_orientation_baselink_aircraft(Eigen::Quaterniond(tr.rotation())));
+		auto q = Eigen::Quaterniond(tr.rotation());
+        //ROS_INFO("x: %.2f y: %2f z: %.2f yaw: %.2f",p.x(), p.y(), p.z(), UAS::quaternion_get_yaw(q));
 		set_position_target_local_ned(stamp.toNSec() / 1000000,
 				MAV_FRAME_LOCAL_NED,
 				ignore_all_except_xyz_y,
